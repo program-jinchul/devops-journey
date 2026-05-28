@@ -1,26 +1,49 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-def get_github_stats(username):
-    url = f"https://api.github.com/users/{username}"
+load_dotenv()
+TOKEN = os.getenv("GITHUB_TOKEN")
+
+def get_contribution_stats(username):
+    query = """
+    query($username: String!) {
+        user(login: $username) {
+            contributionsCollection {
+                totalCommitContributions
+                totalPullRequestContributions
+                totalIssueContributions
+                contributionCalendar {
+                    totalContributions
+                    weeks {
+                        contributionDays {
+                            contributionCount
+                            date
+                        }
+                    }
+                }
+            }
+        }
+    }
+    """
+    
     try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            print(f"👤 유저명: {data['login']}")
-            print(f"📦 퍼블릭 레포 수: {data['public_repos']}")
-            print(f"👥 팔로워: {data['followers']}")
-            print(f"👣 팔로잉: {data['following']}")
-            print("자기소개 없음") if data['bio'] is None else print(f"{data['bio']}")
-
-            if data['followers'] == 0:
-                print("아직 팔로워가 없어요!")
-            else:
-                print(f"팔로워가 {data['followers']}명 있어요.")
-
-        else:
-            print("유저를 찾을 수 없어.")
-    except:
-        print("네트워크 오류!")
+        response = requests.post(
+            "https://api.github.com/graphql",
+            json={"query": query, "variables": {"username": username}},
+            headers=HEADERS
+        )
+        data = response.json()
+        stats = data["data"]["user"]["contributionsCollection"]
+        calendar = stats["contributionCalendar"]
         
+        print(f"🌱 총 잔디: {calendar['totalContributions']}개")
+        print(f"💻 커밋: {stats['totalCommitContributions']}개")
+        print(f"🔀 PR: {stats['totalPullRequestContributions']}개")
+        print(f"🐛 이슈: {stats['totalIssueContributions']}개")
+        
+    except:
+        print("오류가 발생했어요.")
+
 username = input("GitHub 유저명 입력: ")
-get_github_stats(username)
+get_contribution_stats(username)
