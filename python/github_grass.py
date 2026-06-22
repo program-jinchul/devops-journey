@@ -9,6 +9,8 @@ TOKEN = os.getenv("GITHUB_TOKEN")
 HEADERS = {"Authorization": f"bearer {TOKEN}"}
 
 def get_contribution_stats(username):
+    streak = 0 # 연속 학습 일수 변수
+    
     query = """
     query($username: String!) {
         user(login: $username) {
@@ -49,6 +51,17 @@ def get_contribution_stats(username):
             for day in week["contributionDays"]:
                 if day["date"] == today:
                     print(f"오늘의 잔디: {day["contributionCount"]}")
+
+        flag = True        
+        for week in calendar["weeks"][::-1]:
+            if flag == False:
+                break
+            for day in week["contributionDays"][::-1]:
+                if day["contributionCount"] != 0:
+                    streak += 1
+                else:                
+                    flag = False
+        print(f"연속 학습 일수: {streak}일")
         
     except:
         print("오류가 발생했어요.")
