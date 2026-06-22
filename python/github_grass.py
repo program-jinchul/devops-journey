@@ -1,9 +1,12 @@
 import requests
 import os
 from dotenv import load_dotenv
+from datetime import date
 
+today = str(date.today())
 load_dotenv()
 TOKEN = os.getenv("GITHUB_TOKEN")
+HEADERS = {"Authorization": f"bearer {TOKEN}"}
 
 def get_contribution_stats(username):
     query = """
@@ -41,6 +44,11 @@ def get_contribution_stats(username):
         print(f"💻 커밋: {stats['totalCommitContributions']}개")
         print(f"🔀 PR: {stats['totalPullRequestContributions']}개")
         print(f"🐛 이슈: {stats['totalIssueContributions']}개")
+
+        for week in calendar["weeks"]:
+            for day in week["contributionDays"]:
+                if day["date"] == today:
+                    print(f"오늘의 잔디: {day["contributionCount"]}")
         
     except:
         print("오류가 발생했어요.")
