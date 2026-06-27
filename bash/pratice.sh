@@ -19,3 +19,26 @@ say_hello() {
     echo "안녕 $1"
 }
 say_hello "jinchul"
+
+score=90
+
+if [ $score -ge 90 ]; then
+    echo "A"
+elif [ $score -ge 80 ]; then
+    echo "B"
+else
+    echo "C"
+fi
+
+for j in {1..10}
+
+do
+    if [ $(($j % 2)) -eq 0 ]; then
+        echo $j
+    fi
+done
+
+plus_number() {
+    echo $(($1 + $2))
+}
+plus_number 1 2
