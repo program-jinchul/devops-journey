@@ -2,10 +2,6 @@ import boto3
 
 ec2 = boto3.client('ec2', region_name='ap-northeast-2')
 
-response = ec2.describe_instances()
-
-
-
 action = input('start or stop:')
 if action == 'start':
     print('EC2를 실행합니다.')
@@ -13,6 +9,8 @@ if action == 'start':
 else:
     print('EC2를 중지합니다.')
     stop = ec2.stop_instances(InstanceIds=['i-0e36eada750cf6cab'])
+
+response = ec2.describe_instances()
 
 for reservation in response['Reservations']:
     for instance in reservation['Instances']:
