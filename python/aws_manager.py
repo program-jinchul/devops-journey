@@ -28,13 +28,21 @@ class AwsManager:
 
     def s3_monitor(self, action):
         # S3 monitor
-        print('bucket를 만드세요!')
+        if action == "upload":
+            print('버킷을 조회합니다.')
+            self.s3.upload_file('python/test.txt', 'jinchul-devops-bucket', 'test.txt')
+        else:
+            print('버킷을 삭제합니다.')
+            self.s3.delete_object(
+    Bucket = 'jinchul-devops-bucket',
+    Key = 'test.txt'
+)
 
 
 manager = AwsManager()
 
 service = input("ec2 / rds / s3: ")
-action = input("start / stop: ")
+action = input("start / stop / upload / delete: ")
 
 if service == "ec2":
     manager.ec2_monitor(action)
