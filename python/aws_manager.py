@@ -1,14 +1,14 @@
-import boto3
+import boto3 # aws를 코드로 제어할 수 있게 해주는 라이브러리
 
 
 
-class AwsManager:
-    def __init__(self, region='ap-northeast-2'):
+class AwsManager: # AWSManager 객체를 만들어 각각의 aws 기능들을 제어
+    def __init__(self, region='ap-northeast-2'): # 변수들 초기화
         self.ec2 = boto3.client('ec2', region_name='ap-northeast-2')
         self.rds = boto3.client('rds', region_name='ap-northeast-2')
         self.s3 = boto3.client('s3', region_name='ap-northeast-2')
 
-    def ec2_monitor(self, action):
+    def ec2_monitor(self, action): # ec2 관리
         # EC2 monitor
         if action == 'start':
             print('EC2를 실행합니다.')
@@ -17,7 +17,7 @@ class AwsManager:
             print('EC2를 중지합니다.')
             self.ec2.stop_instances(InstanceIds=['i-0e36eada750cf6cab'])
             
-    def rds_monitor(self, action):
+    def rds_monitor(self, action): # rds 관리
         # RDS monitor
         if action == 'start':
             print('RDS를 시작합니다.')
@@ -26,7 +26,7 @@ class AwsManager:
             print('RDS를 중지합니다.')
             self.rds.stop_db_instance(DBInstanceIdentifier='jinchul-db')
 
-    def s3_monitor(self, action):
+    def s3_monitor(self, action): # s3 관리
         # S3 monitor
         if action == "upload":
             print('버킷을 조회합니다.')
