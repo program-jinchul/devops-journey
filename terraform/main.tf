@@ -15,7 +15,7 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   
   tags = {
-    Name = "jinchul-vpc-terraform"
+    Name = "jinchul-vpc-tf"
   }
 }
 
@@ -24,7 +24,7 @@ resource "aws_subnet" "main_subnet" {
   cidr_block        = "10.0.1.0/24" 
   availability_zone =  "ap-northeast-2a"
   tags = {
-    Name = "jinchul-public-subnet"
+    Name = "jinchul-public-subnet-tf"
   }
 }
 
@@ -76,7 +76,11 @@ resource "aws_security_group" "main_security_group" {
     from_port  = 0
     to_port    = 0
     cidr_blocks = ["0.0.0.0/0"]
-  }  
+  }
+  
+  tags = {
+    Name = "jinchul-security-group-tf"
+  }
 }
 
 resource "aws_instance" "main_aws_instance" {
