@@ -43,7 +43,6 @@ VPC (10.0.0.0/16)
 └── Private Subnet (10.0.2.0/24) → RDS
 
 ## Terraform 코드
-## Terraform 코드
 ```hcl
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
