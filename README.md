@@ -20,11 +20,18 @@ DevOps 엔지니어를 목표로 하는 대학교 2학년의 여름방학 학습
 devops-journey/
 ├── python/ # Python 스크립트
 ├── bash/ # Bash 스크립트
-├── aws/ # AWS 실습 기록
+├── aws/ # AWS 서비스별 실습 기록
 ├── terraform/ # Terraform IaC 코드
+│ ├── main.tf
+│ ├── variables.tf
+│ ├── outputs.tf
+│ └── modules/
+│ ├── vpc/ # VPC, Subnet, IGW, Route Table
+│ └── ec2/ # Security Group, EC2
 └── TIL/ # 매일 학습 기록
 
 ## 📝 주요 실습
+
 ### Python
 - GitHub 잔디 현황 스크립트 (GraphQL API)
 - 시스템 모니터링 스크립트 (psutil)
@@ -46,6 +53,8 @@ devops-journey/
 ### Terraform
 - AWS 전체 인프라 코드화 (VPC, Subnet, IGW, Route Table, Security Group, EC2)
 - variables.tf, outputs.tf 구성
+- modules 폴더로 vpc/ec2 분리 관리
+- 상위 main.tf에서 module 블록으로 호출하여 인프라 한 번에 배포
 
 ## 📅 학습 기간
 2026.06.22 ~ 진행 중
