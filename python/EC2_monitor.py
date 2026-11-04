@@ -3,6 +3,7 @@ import boto3 # aws를 코드로 제어할 수 있게 해주는 라이브러리
 ec2 = boto3.client('ec2', region_name='ap-northeast-2') # boto3로 EC2 클라이언트 생성
 
 action = input('start or stop:') # start / stop 제어
+
 if action == 'start':
     print('EC2를 실행합니다.')
     start = ec2.start_instances(InstanceIds=['i-0e36eada750cf6cab']) # InstanceIds를 받아서 시작

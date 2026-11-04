@@ -63,8 +63,8 @@ def get_contribution_stats(username):
                     flag = False
         print(f"연속 학습 일수: {streak}일")
         
-    except:
-        print("오류가 발생했어요.")
+    except Exception as e:
+        print("오류: ", e)
 
 username = input("GitHub 유저명 입력: ")
 get_contribution_stats(username)

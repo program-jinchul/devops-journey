@@ -1,5 +1,5 @@
 import psutil # 파이썬 라이브러리, cpu ram disk 사용량 측정 목적으로 사용
-import time
+import time # linux sleep
 
 try:
     while True:
