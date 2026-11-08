@@ -13,4 +13,5 @@ block() { echo "BLOCKED by guard_bash.sh: $1" >&2; exit 2; }
 [[ "$cmd" =~ python3?[[:space:]]+(\./)?python/ ]] && block "python/ 스크립트는 실제 AWS를 건드리므로 사용자가 직접 실행"
 [[ "$cmd" =~ rm[[:space:]]+-[a-zA-Z]*(rf|fr) ]] && block "rm -rf 금지"
 [[ "$cmd" =~ git[[:space:]]+push ]] && block "push는 사용자가 직접"
+[[ "$cmd" =~ (^|[[:space:];&|])gh[[:space:]]+(api|.*[[:space:]](create|edit|close|delete|merge|comment|reopen|review|run|set|archive|rename|fork|enable|disable)) ]] && block "gh 쓰기 명령은 사용자가 직접"
 exit 0
