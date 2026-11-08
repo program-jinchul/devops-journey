@@ -11,5 +11,16 @@
         ]
       }
     ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(aws * describe-*)",
+      "Bash(aws * list-*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "mcp__terraform",
+      "mcp__github"
+    ]
   }
 }
