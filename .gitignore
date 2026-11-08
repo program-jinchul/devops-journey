@@ -1,4 +1,4 @@
 .env
 .terraform/
 terraform.tfstate
-terraform.tfstate.backup
+terraform.tfstate.backup.claude/settings.local.json
