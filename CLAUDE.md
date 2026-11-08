@@ -6,11 +6,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A personal DevOps learning log (Korean-language), not a deployable application. It mixes standalone practice scripts, Terraform IaC, and markdown notes. There is no build system, test suite, linter config, or dependency manifest. Write docs, comments, and TIL entries in Korean to match the existing content.
 
-- `python/` — standalone boto3/psutil/requests scripts, each run directly (`python python/<script>.py`). Most are interactive (`input()`) and act on **real AWS resources** as soon as they run (start/stop EC2 and RDS, S3 upload/delete). Don't execute them to "test" a change without the user's OK.
+- `python/` — standalone boto3/psutil/requests scripts, each run directly (`python python/<script>.py`). Most are interactive (`input()`) and act on **real AWS resources** as soon as they run (start/stop EC2 and RDS, S3 upload/delete). Don't execute them to "test" a change without the user's OK. The EC2/RDS IDs hardcoded in them now point to deleted resources, so those scripts can't run as-is.
 - `bash/` — small shell practice scripts.
 - `terraform/` — root module that calls `modules/vpc` and `modules/ec2`.
 - `aws/` — per-service notes (VPC, EC2, RDS, S3, IAM, CloudWatch).
-- `TIL/` — daily notes named `YYYY-MM-DD.md` (a multi-day entry uses `YYYY-MM-DD~DD.md`).
+- `TIL/` — daily notes. New files from 2026-11-08: `YYYY-MM-DD_topic.md` (topic: lowercase English, underscores). Older files keep `YYYY-MM-DD.md` / `YYYY-MM-DD~DD.md`; don't rename them.
+- `.claude/` — `hooks/guard_bash.sh` (PreToolUse guard that blocks risky Bash), `agents/aws-auditor.md` (read-only cost/resource audit), `skills/til_writer/` (TIL drafts).
+
+## Current AWS state
+
+EC2 `i-0e36eada750cf6cab` and RDS `jinchul-db` are deleted. No billable resources remain.
 
 ## Commands
 
@@ -37,12 +42,9 @@ python python/terraform_boto3.py
 - **Terraform data flow:** root `main.tf` passes `module.vpc.vpc_id` / `module.vpc.subnet_id` into the `ec2` module. The VPC module builds a single public subnet with an IGW, a route table, and an association. The EC2 module owns its security group (22 and 80 open to 0.0.0.0/0) and a fixed AMI. Modules don't declare their own `terraform`/`provider` blocks. A module variable without a `default` is required and must be passed from the root.
 - **Terraform → Python link:** `python/terraform_boto3.py` shells out to `terraform output instance_id` in `terraform/` and then queries that instance with boto3. That only works if the **root** module exposes `instance_id`. Right now `terraform/outputs.tf` is empty, and only `modules/ec2/outputs.tf` defines it. To fix this, re-export it at the root (`value = module.ec2.instance_id`).
 - `terraform/variables.tf` holds stale root variables (`instance_type`, plus `subnet_id` with a hardcoded old subnet ID) that `main.tf` doesn't use. `main.tf` passes literals into the modules instead.
-- **Hardcoded resource identifiers** across the Python scripts: EC2 `i-0e36eada750cf6cab`, RDS `jinchul-db`, S3 bucket `jinchul-devops-bucket`. Resource `Name` tags follow the `jinchul-<resource>-tf` pattern for Terraform-managed resources.
+- **Hardcoded resource identifiers** across the Python scripts: EC2 `i-0e36eada750cf6cab` (deleted), RDS `jinchul-db` (deleted), S3 bucket `jinchul-devops-bucket`.
+- **Name tags:** real AWS tags have no `-tf` suffix (e.g. `jinchul-vpc`). The `terraform/` code still sets `jinchul-<resource>-tf`.
 - `python/system_monitor.py` and `bash/system_monitor.sh` assume Windows/WSL disk paths (`C:\\`, `/mnt/c`).
-
-## Conventions
-
-Commit messages use Conventional Commits prefixes: `feat:`, `docs:`, `refactor:`, `chore:`, `fix:`.
 
 ## 규칙
 - 커밋 컨벤션: feat / docs / refactor / chore / fix
