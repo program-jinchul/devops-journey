@@ -52,6 +52,10 @@ python python/terraform_boto3.py
 - 시크릿은 .env에만, 절대 커밋 금지 (.gitignore 확인)
 - AWS 리전: ap-northeast-2
 
+- 안티 오버엔지니어링: 요청된 범위만 구현. 새 추상화·설정·파일은 필요가 확인될 때만 추가
+- 의존성: 표준 라이브러리 우선. 새 패키지·Terraform 모듈·provider는 추가 전에 이유를 말하고 확인받을 것
+- 새로 만들기 전에 기존 코드·모듈 재사용부터 검토
+
 ## AWS 권한
 - 기본 프로필은 claude-readonly (조회 전용)
 - jinchul-dev 프로필은 내가 명시적으로 요청할 때만 사용
