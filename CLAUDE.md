@@ -17,6 +17,13 @@ A personal DevOps learning log (Korean-language), not a deployable application. 
 
 EC2 `i-0e36eada750cf6cab` and RDS `jinchul-db` are deleted. No billable resources remain.
 
+Remaining (not billable, as of 2026-11-11):
+- S3 bucket `jinchul-devops-bucket`
+- VPC `jinchul-vpc`, security groups `jinchul-sg` and `jinchul-db-sg` (whether Terraform manages them is unconfirmed)
+- CloudWatch log group `access.log`
+
+The AWS write profile is `default` (IAM user `jinchul-dev`). There is no profile named `jinchul-dev`.
+
 ## Commands
 
 Run scripts from the repo root. Paths like `python/test.txt` and `cwd="terraform"` in the scripts assume that.
@@ -58,7 +65,7 @@ python python/terraform_boto3.py
 
 ## AWS 권한
 - 기본 프로필은 claude-readonly (조회 전용)
-- jinchul-dev 프로필은 내가 명시적으로 요청할 때만 사용
+- default 프로필(IAM 사용자 jinchul-dev, 쓰기 권한)은 내가 명시적으로 요청할 때만 사용
 - terraform apply / destroy, 리소스 생성·삭제는 실행 전 반드시 확인 받기
 - python/ 스크립트는 실제 AWS 리소스를 건드리므로 내 승인 없이 실행 금지
 
