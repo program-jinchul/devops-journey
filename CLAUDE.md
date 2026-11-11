@@ -19,7 +19,6 @@ EC2 `i-0e36eada750cf6cab` and RDS `jinchul-db` are deleted. No billable resource
 
 Remaining (not billable, as of 2026-11-11):
 - S3 bucket `jinchul-devops-bucket`
-- VPC `jinchul-vpc`, security groups `jinchul-sg` and `jinchul-db-sg` (whether Terraform manages them is unconfirmed)
 - CloudWatch log group `access.log`
 
 The AWS write profile is `default` (IAM user `jinchul-dev`). There is no profile named `jinchul-dev`.
