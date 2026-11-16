@@ -10,29 +10,29 @@ resource "aws_instance" "main_aws_instance" {
 }
 
 resource "aws_security_group" "main" {
-    vpc_id = var.vpc_id
+  vpc_id = var.vpc_id
 
-    ingress {
-    protocol   = "tcp"
-    from_port  = 22
-    to_port    = 22
-    cidr_blocks = ["0.0.0.0/0"]
+  ingress {
+    protocol    = "tcp"
+    from_port   = 22
+    to_port     = 22
+    cidr_blocks = [var.ssh_allowed_cidr]
   }
 
   ingress {
-    protocol   = "tcp"
-    from_port  = 80
-    to_port    = 80
+    protocol    = "tcp"
+    from_port   = 80
+    to_port     = 80
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    protocol   = "-1"
-    from_port  = 0
-    to_port    = 0
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
+
   tags = {
     Name = "jinchul-security-group-tf"
   }

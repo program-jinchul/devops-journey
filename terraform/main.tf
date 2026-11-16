@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~> 5.0"
     }
   }
@@ -19,8 +19,9 @@ module "vpc" {
 }
 
 module "ec2" {
-  source         = "./modules/ec2"
-  vpc_id        = module.vpc.vpc_id
-  subnet_id     = module.vpc.subnet_id
-  instance_type = "t3.micro"
+  source           = "./modules/ec2"
+  vpc_id           = module.vpc.vpc_id
+  subnet_id        = module.vpc.subnet_id
+  instance_type    = "t3.micro"
+  ssh_allowed_cidr = var.my_ip_cidr
 }

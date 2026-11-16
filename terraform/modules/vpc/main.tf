@@ -1,6 +1,6 @@
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
-  
+
   tags = {
     Name = "jinchul-vpc-tf"
   }
@@ -9,7 +9,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "main_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.subnet_cidr
-  availability_zone =  var.availability_zone
+  availability_zone = var.availability_zone
   tags = {
     Name = "jinchul-public-subnet-tf"
   }
@@ -38,5 +38,5 @@ resource "aws_route_table" "main_route_table" {
 
 resource "aws_route_table_association" "main_route_table_association" {
   subnet_id      = aws_subnet.main_subnet.id
-  route_table_id = aws_route_table.main_route_table.id 
+  route_table_id = aws_route_table.main_route_table.id
 }

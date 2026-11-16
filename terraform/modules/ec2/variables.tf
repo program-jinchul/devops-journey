@@ -1,12 +1,16 @@
 variable "subnet_id" {
-    description = "EC2를 배치할 서브넷 ID"
+  description = "EC2를 배치할 서브넷 ID"
 }
 
 variable "instance_type" {
-    description = "EC2 인스턴스 타입"
-    default     = "t3.micro"
+  description = "EC2 인스턴스 타입"
+  default     = "t3.micro"
 }
 
 variable "vpc_id" {
-    description = "EC2를 배치할 VPC ID"
+  description = "EC2를 배치할 VPC ID"
+}
+variable "ssh_allowed_cidr" {
+  description = "SSH(22) 접속을 허용할 CIDR (예: 1.2.3.4/32)"
+  type        = string
 }

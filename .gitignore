@@ -3,3 +3,4 @@
 terraform.tfstate
 terraform.tfstate.backup
 .claude/settings.local.json
+terraform.tfvars
