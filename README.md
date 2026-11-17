@@ -51,8 +51,8 @@ devops-journey/
 - 조건문, 반복문, 함수 실습
 
 ### Terraform
-- AWS 전체 인프라 코드화 (VPC, Subnet, IGW, Route Table, Security Group, EC2)
-- variables.tf, outputs.tf 구성
+- AWS 인프라 코드화 (VPC, Subnet(public 1개), IGW, Route Table, Security Group, EC2)
+- variables.tf, outputs.tf 구성(outputs.tf는 모듈 레벨만 구성, 루트 레벨은 아직 미구성)
 - modules 폴더로 vpc/ec2 분리 관리
 - 상위 main.tf에서 module 블록으로 호출하여 인프라 한 번에 배포
 
