@@ -13,30 +13,36 @@ class AwsManager: # AWSManager 객체를 만들어 각각의 aws 기능들을 �
         if action == 'start':
             print('EC2를 실행합니다.')
             self.ec2.start_instances(InstanceIds=['i-0e36eada750cf6cab'])
-        else:
+        elif action == "stop":
             print('EC2를 중지합니다.')
             self.ec2.stop_instances(InstanceIds=['i-0e36eada750cf6cab'])
-            
+        else:
+            print("제대로 입력하세요.")
+
     def rds_monitor(self, action): # rds 관리
         # RDS monitor
         if action == 'start':
             print('RDS를 시작합니다.')
             self.rds.start_db_instance(DBInstanceIdentifier='jinchul-db')
-        else:
+        elif action == "stop":
             print('RDS를 중지합니다.')
             self.rds.stop_db_instance(DBInstanceIdentifier='jinchul-db')
+        else:
+            print("제대로 입력하세요.")
 
     def s3_monitor(self, action): # s3 관리
         # S3 monitor
         if action == "upload":
             print('버킷을 조회합니다.')
             self.s3.upload_file('python/test.txt', 'jinchul-devops-bucket', 'test.txt')
-        else:
+        elif action == "delete":
             print('버킷을 삭제합니다.')
             self.s3.delete_object(
     Bucket = 'jinchul-devops-bucket',
     Key = 'test.txt'
 )
+        else:
+            print("제대로 입력하세요.")
 
 
 manager = AwsManager()
