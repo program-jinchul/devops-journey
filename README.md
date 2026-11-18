@@ -5,7 +5,6 @@ DevOps 엔지니어를 목표로 하는 대학교 2학년의 여름방학 학습
 ## 📚 학습 목표
 - Python/Bash 자동화 스크립트 작성 능력 향상
 - AWS 핵심 서비스 실습 및 Terraform으로 인프라 자동화
-- SQL 기초 및 SQLD 자격증 취득
 
 ## 🛠️ 기술 스택
 - **언어**: Python, Bash
